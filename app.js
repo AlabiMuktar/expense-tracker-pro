@@ -27,10 +27,15 @@ const app = express();
 app.use(cors())
 
 app.use(express.json());
-const PORT = 8000;
+const port = process.env.PORT || 8000;
+
+app.get('/', (req, res)=> {
+  res.send('Hello')
+})
 
 app.use('/api/users', usersRoutes)
 app.use('/api/transactions', transactionRoutes)
+
 
 app.all('*', (req, res)=> {
   res.status(404).json({
@@ -41,6 +46,6 @@ app.all('*', (req, res)=> {
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`server listening on PORT ${PORT}`);
+app.listen(port, () => {
+  console.log(`server listening on PORT ${port}`);
 });
